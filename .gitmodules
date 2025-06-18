@@ -1,0 +1,6 @@
+[submodule "HSS"]
+	path = HSS
+	url = https://github.com/polarfire-soc/hart-software-services
+[submodule "Linux/yocto"]
+	path = Linux/yocto
+	url = https://github.com/polarfire-soc/meta-polarfire-soc-yocto-bsp
