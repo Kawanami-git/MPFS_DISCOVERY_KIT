@@ -204,7 +204,7 @@ run_tool -name {SYNTHESIZE}
 run_tool -name {PLACEROUTE}
 run_tool -name {VERIFYTIMING}
 
-if {[info exists env(PROGRAM)]} {
+if {[info exists env(program)]} {
     run_tool -name {PROGRAMDEVICE}
 }
 

@@ -10,6 +10,8 @@ KERNEL_DEVICETREE:mpfs-disco-kit = "microchip/mpfs-disco-kit.dtb"
 
 
 SRC_URI += "file://fpga.cfg"
+SRC_URI += "file://kernel.cfg"
 
 KERNEL_CONFIG_FRAGMENTS += "fpga.cfg"
+KERNEL_CONFIG_FRAGMENTS += "kernel.cfg"
 
