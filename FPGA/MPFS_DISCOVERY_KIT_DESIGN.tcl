@@ -43,7 +43,7 @@ set local_dir [pwd]
 set constraint_path ./script_support/constraints
 
 set project_name "SCHOLAR_RISC-V"
-set project_dir "../../work/SCHOLAR_RISC-V_MPFS_DISCO_KIT_support/FPGA"
+set project_dir "../../work/MPFS_DISCOVERY_KIT/FPGA"
 
 set jobPath "$project_dir/bitstream"
 set components "FABRIC"
