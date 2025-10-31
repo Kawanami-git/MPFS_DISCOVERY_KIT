@@ -1,56 +1,79 @@
-import_files -hdl_source {../../../work/hdl/packages.sv}
-import_files -hdl_source {../../../work/hdl/GPR.sv}
-import_files -hdl_source {../../../work/hdl/CSR.sv}
-import_files -hdl_source {../../../work/hdl/fetch.sv}
-import_files -hdl_source {../../../work/hdl/decode.sv}
-import_files -hdl_source {../../../work/hdl/exe.sv}
-import_files -hdl_source {../../../work/hdl/commit.sv}
-import_files -hdl_source {../../../work/hdl/scholar_riscv_core.sv}
+import_files -hdl_source {../../../hardware/core/gpr/gpr.sv}
+import_files -hdl_source {../../../hardware/core/csr/csr.sv}
+import_files -hdl_source {../../../hardware/core/fetch/fetch.sv}
+import_files -hdl_source {../../../hardware/core/decode/decode.sv}
+import_files -hdl_source {../../../hardware/core/exe/exe.sv}
+import_files -hdl_source {../../../hardware/core/writeback/writeback.sv}
+import_files -hdl_source {../../../hardware/core/scholar_riscv_core.sv}
 
-import_files -hdl_source {../../../work/hdl/instr_dpram.sv}
-import_files -hdl_source {../../../work/hdl/data_dpram.sv}
-import_files -hdl_source {../../../work/hdl/ctp_dpram.sv}
-import_files -hdl_source {../../../work/hdl/ptc_dpram.sv}
-import_files -hdl_source {../../../work/hdl/bus_fabric.sv}
-import_files -hdl_source {../../../work/hdl/riscv_env.sv}
+import_files -hdl_source {../../../hardware/env/raxi_dpram.sv}
+import_files -hdl_source {../../../hardware/env/waxi_dpram.sv}
+import_files -hdl_source {../../../hardware/env/microchip/dpram_20x1024.sv}
+import_files -hdl_source {../../../hardware/env/microchip/dpram_40x1024.sv}
+import_files -hdl_source {../../../hardware/env/dpram_32w.sv}
+import_files -hdl_source {../../../hardware/env/dpram_64w.sv}
+import_files -hdl_source {../../../hardware/env/dpram.sv}
+import_files -hdl_source {../../../hardware/env/bus_fabric.sv}
+import_files -hdl_source {../../../hardware/env/riscv_env.sv}
 
 build_design_hierarchy
 
 create_hdl_core -file hdl/riscv_env.sv -module {riscv_env} -library {work} -package {}
 
+hdl_core_add_bif -hdl_core_name {riscv_env} -bif_definition {AXI4:AMBA:AMBA4:slave} -bif_name {INSTR_AXI4_TARGET} -signal_map {\
+"AWID:s_instr_axi_awid_i" \
+"AWADDR:s_instr_axi_awaddr_i" \
+"AWLEN:s_instr_axi_awlen_i" \
+"AWSIZE:s_instr_axi_awsize_i" \
+"AWBURST:s_instr_axi_awburst_i" \
+"AWLOCK:s_instr_axi_awlock_i" \
+"AWCACHE:s_instr_axi_awcache_i" \
+"AWPROT:s_instr_axi_awprot_i" \
+"AWVALID:s_instr_axi_awvalid_i" \
+"AWREADY:s_instr_axi_awready_o" \
+"WDATA:s_instr_axi_wdata_i" \
+"WSTRB:s_instr_axi_wstrb_i" \
+"WLAST:s_instr_axi_wlast_i" \
+"WVALID:s_instr_axi_wvalid_i" \
+"WREADY:s_instr_axi_wready_o" \
+"BID:s_instr_axi_bid_o" \
+"BRESP:s_instr_axi_bresp_o" \
+"BVALID:s_instr_axi_bvalid_o" \
+"BREADY:s_instr_axi_bready_i" }
+
 hdl_core_add_bif -hdl_core_name {riscv_env} -bif_definition {AXI4:AMBA:AMBA4:slave} -bif_name {AXI4_TARGET} -signal_map {\
-"AWID:S_AXI_AWID" \
-"AWADDR:S_AXI_AWADDR" \
-"AWLEN:S_AXI_AWLEN" \
-"AWSIZE:S_AXI_AWSIZE" \
-"AWBURST:S_AXI_AWBURST" \
-"AWLOCK:S_AXI_AWLOCK" \
-"AWCACHE:S_AXI_AWCACHE" \
-"AWPROT:S_AXI_AWPROT" \
-"AWVALID:S_AXI_AWVALID" \
-"AWREADY:S_AXI_AWREADY" \
-"WDATA:S_AXI_WDATA" \
-"WSTRB:S_AXI_WSTRB" \
-"WLAST:S_AXI_WLAST" \
-"WVALID:S_AXI_WVALID" \
-"WREADY:S_AXI_WREADY" \
-"BID:S_AXI_BID" \
-"BRESP:S_AXI_BRESP" \
-"BVALID:S_AXI_BVALID" \
-"BREADY:S_AXI_BREADY" \
-"ARID:S_AXI_ARID" \
-"ARADDR:S_AXI_ARADDR" \
-"ARLEN:S_AXI_ARLEN" \
-"ARSIZE:S_AXI_ARSIZE" \
-"ARBURST:S_AXI_ARBURST" \
-"ARLOCK:S_AXI_ARLOCK" \
-"ARCACHE:S_AXI_ARCACHE" \
-"ARPROT:S_AXI_ARPROT" \
-"ARVALID:S_AXI_ARVALID" \
-"ARREADY:S_AXI_ARREADY" \
-"RID:S_AXI_RID" \
-"RDATA:S_AXI_RDATA" \
-"RRESP:S_AXI_RRESP" \
-"RLAST:S_AXI_RLAST" \
-"RVALID:S_AXI_RVALID" \
-"RREADY:S_AXI_RREADY" }
+"AWID:s_axi_awid_i" \
+"AWADDR:s_axi_awaddr_i" \
+"AWLEN:s_axi_awlen_i" \
+"AWSIZE:s_axi_awsize_i" \
+"AWBURST:s_axi_awburst_i" \
+"AWLOCK:s_axi_awlock_i" \
+"AWCACHE:s_axi_awcache_i" \
+"AWPROT:s_axi_awprot_i" \
+"AWVALID:s_axi_awvalid_i" \
+"AWREADY:s_axi_awready_o" \
+"WDATA:s_axi_wdata_i" \
+"WSTRB:s_axi_wstrb_i" \
+"WLAST:s_axi_wlast_i" \
+"WVALID:s_axi_wvalid_i" \
+"WREADY:s_axi_wready_o" \
+"BID:s_axi_bid_o" \
+"BRESP:s_axi_bresp_o" \
+"BVALID:s_axi_bvalid_o" \
+"BREADY:s_axi_bready_i" \
+"ARID:s_axi_arid_i" \
+"ARADDR:s_axi_araddr_i" \
+"ARLEN:s_axi_arlen_i" \
+"ARSIZE:s_axi_arsize_i" \
+"ARBURST:s_axi_arburst_i" \
+"ARLOCK:s_axi_arlock_i" \
+"ARCACHE:s_axi_arcache_i" \
+"ARPROT:s_axi_arprot_i" \
+"ARVALID:s_axi_arvalid_i" \
+"ARREADY:s_axi_arready_o" \
+"RID:s_axi_rid_o" \
+"RDATA:s_axi_rdata_o" \
+"RRESP:s_axi_rresp_o" \
+"RLAST:s_axi_rlast_o" \
+"RVALID:s_axi_rvalid_o" \
+"RREADY:s_axi_rready_i" }

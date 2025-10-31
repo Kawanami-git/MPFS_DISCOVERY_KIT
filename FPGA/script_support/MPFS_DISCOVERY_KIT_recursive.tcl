@@ -7,14 +7,12 @@ source components/PF_CCC_C0.tcl
 source components/CLOCKS_AND_RESETS.tcl 
 source components/MSS_WRAPPER.tcl 
 
-source components/AXI4_INTERCONNECT.tcl
-source components/DP_LSRAM_1K.tcl
-source components/DP_LSRAM_2K.tcl
-source components/DP_LSRAM_4K.tcl
-source components/DP_LSRAM_6K.tcl
-source components/DP_LSRAM_8K.tcl
-source components/DP_LSRAM_12K.tcl
-source components/DP_LSRAM_16K.tcl
+if {$ARCHI == 64} {
+    source components/AXI4_INTERCONNECT_64.tcl
+} else {
+    source components/AXI4_INTERCONNECT_32.tcl
+}
+source components/DP_LSRAM_20x1024.tcl
 
 source components/CORES_CLOCKS.tcl
 source components/SCHOLAR_RISC-V.tcl

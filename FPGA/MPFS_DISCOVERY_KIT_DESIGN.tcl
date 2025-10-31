@@ -14,17 +14,13 @@ if { [lindex $tcl_platform(os) 0]  == "Windows" } {
 #################################### ARGUMENTS PROCESSING ###################################
 if { $::argc > 0 } {
     set i 1
-    foreach arg $::argv 
-	{
-        if {[string match "*:*" $arg]} 
-		{
+    foreach arg $::argv {
+        if {[string match "*:*" $arg]} {
             set var [string range $arg 0 [string first ":" $arg]-1]
             set val [string range $arg [string first ":" $arg]+1 end]
             puts "Setting parameter $var to $val"
             set $var "$val"
-        } 
-		else 
-		{
+        } else {
             set $arg 1
             puts "set $arg to 1"
         }
@@ -91,9 +87,9 @@ if { [file exists $project_dir/$project_name.prjx] } {
     smartdesign \
         -memory_map_drc_change_error_to_warning 1 \
         -bus_interface_data_width_drc_change_error_to_warning 1 \
-        -bus_interface_id_width_drc_change_error_to_warning 1 
-    
-	
+        -bus_interface_id_width_drc_change_error_to_warning 1
+
+
 	####################################
 	# Download required cores
 	####################################
@@ -107,10 +103,10 @@ if { [file exists $project_dir/$project_name.prjx] } {
 		puts "Downloading cores failed, the script will continute but will fail if all of the required cores aren't present in the vault."
 	}
 
-	
+
 	####################################
 	# Generate and import MSS component
-	####################################	
+	####################################
 	if {[file isdirectory $project_dir/MSS]} {
 		file delete -force $project_dir/MSS
 	}
@@ -122,11 +118,11 @@ if { [file exists $project_dir/$project_name.prjx] } {
 
 	####################################
 	# Generate base design
-	####################################	
+	####################################
 	cd ./script_support/
 	source MPFS_DISCOVERY_KIT_recursive.tcl
 	cd ../
-	set_root -module {MPFS_DISCOVERY_KIT::work} 
+	set_root -module {MPFS_DISCOVERY_KIT::work}
 
 
 	####################################
@@ -141,8 +137,8 @@ if { [file exists $project_dir/$project_name.prjx] } {
 		-io_pdc "${constraint_path}/MPFS_DISCOVERY_RPi.pdc" \
 		-io_pdc "${constraint_path}/MPFS_DISCOVERY_UARTS.pdc" \
 		-io_pdc "${constraint_path}/MPFS_DISCOVERY_7_SEG.pdc" \
-		-io_pdc "${constraint_path}/MPFS_DISCOVERY_I2C_LOOPBACK.pdc" 
-	
+		-io_pdc "${constraint_path}/MPFS_DISCOVERY_I2C_LOOPBACK.pdc"
+
 	organize_tool_files \
 		-tool {PLACEROUTE} \
 		-file "${project_dir}/constraint/io/MPFS_DISCOVERY_KIT_BANK_SETTINGS.pdc" \
@@ -153,56 +149,54 @@ if { [file exists $project_dir/$project_name.prjx] } {
 		-file "${project_dir}/constraint/io/MPFS_DISCOVERY_UARTS.pdc" \
 		-file "${project_dir}/constraint/io/MPFS_DISCOVERY_7_SEG.pdc" \
 		-module {MPFS_DISCOVERY_KIT::work} \
-		-input_type {constraint}        
-			
+		-input_type {constraint}
+
 
 	####################################
 	# Build hierarchy before progressing
 	####################################
 	build_design_hierarchy
-	
+
 	####################################
 	# Derive timing constraints
 	####################################
-	derive_constraints_sdc 
+	derive_constraints_sdc
 
 
 	####################################
 	# Auto layout SmartDesigns
-	####################################		
-	save_project 
+	####################################
+	save_project
 	sd_reset_layout -sd_name {CLOCKS_AND_RESETS}
 	save_smartdesign -sd_name {CLOCKS_AND_RESETS}
 	sd_reset_layout -sd_name {MSS_WRAPPER}
 	save_smartdesign -sd_name {MSS_WRAPPER}
 	sd_reset_layout -sd_name {MPFS_DISCOVERY_KIT}
 	save_smartdesign -sd_name {MPFS_DISCOVERY_KIT}
-	
+
 
 	####################################
 	# Derive timing constraints
-	####################################	
+	####################################
 	build_design_hierarchy
-	derive_constraints_sdc 
+	derive_constraints_sdc
 
-}	
+}
 ####################################									###################################
 
 #################################### Run the design flow ###################################
 
-
-####################################
-# Enabling minimum delay repair and multi pass max delay
-####################################
-configure_tool -name {PLACEROUTE} -params {DELAY_ANALYSIS:MAX} -params {EFFORT_LEVEL:true} -params {GB_DEMOTION:true} -params {INCRPLACEANDROUTE:false} -params {IOREG_COMBINING:false} -params {MULTI_PASS_CRITERIA:VIOLATIONS} -params {MULTI_PASS_LAYOUT:true} -params {NUM_MULTI_PASSES:2} -params {PDPR:false} -params {RANDOM_SEED:0} -params {REPAIR_MIN_DELAY:true} -params {REPLICATION:false} -params {SLACK_CRITERIA:WORST_SLACK} -params {SPECIFIC_CLOCK:} -params {START_SEED_INDEX:1} -params {STOP_ON_FIRST_PASS:true} -params {TDPR:true} 
-
-
 ####################################
 # Generating and exporting flash pro express job
 ####################################
-run_tool -name {SYNTHESIZE}
-run_tool -name {PLACEROUTE}
-run_tool -name {VERIFYTIMING}
+update_and_run_tool -name {SYNTHESIZE}
+
+if { $isNewProject == 1 } {
+configure_tool -name {PLACEROUTE} -params {DELAY_ANALYSIS:MAX} -params {EFFORT_LEVEL:true} -params {GB_DEMOTION:true} -params {INCRPLACEANDROUTE:false} -params {IOREG_COMBINING:false} -params {MULTI_PASS_CRITERIA:VIOLATIONS} -params {MULTI_PASS_LAYOUT:true} -params {NUM_MULTI_PASSES:1} -params {PDPR:false} -params {RANDOM_SEED:0} -params {REPAIR_MIN_DELAY:true} -params {REPLICATION:false} -params {SLACK_CRITERIA:WORST_SLACK} -params {SPECIFIC_CLOCK:} -params {START_SEED_INDEX:1} -params {STOP_ON_FIRST_PASS:true} -params {TDPR:true}
+}
+update_and_run_tool -name {PLACEROUTE}
+
+update_and_run_tool -name {VERIFYTIMING}
 
 if {[info exists env(program)]} {
     run_tool -name {PROGRAMDEVICE}

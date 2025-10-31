@@ -1,4 +1,29 @@
 #!/bin/bash
+# SPDX-License-Identifier: MIT
+# /*!
+# ********************************************************************************
+# \file       setup_microchip_tools.sh
+# \brief      Environment setup for Microchip toolchain (SoftConsole, Libero, license daemon).
+# \author     Kawanami
+# \version    1.0
+# \date       26/10/2025
+#
+# \details
+#   Exports PATH and environment variables for:
+#   - SoftConsole (RISC-V GCC toolchain)
+#   - Libero SoC (Designer, Synplify, ModelSim OEM)
+#   - License daemon (lmgrd) and license file locations
+#
+# \remarks
+#   - Tested on Ubuntu 20.04.6 with Libero 2025.1 and SoftConsole 2022.2.
+#   - Adjust the directories below to match your installation paths.
+#
+# \section setup_microchip_tools_sh_version_history Version history
+# | Version | Date       | Author     | Description      |
+# |:-------:|:----------:|:-----------|:-----------------|
+# | 1.0     | 26/10/2025 | Kawanami   | Initial version. |
+# ********************************************************************************
+# */
 
 #===============================================================================
 # Edit the following section with the location where the following tools are

@@ -1,4 +1,35 @@
-#!/bin/bash
+#!/usr/bin/env bash
+# SPDX-License-Identifier: MIT
+# /*!
+# ********************************************************************************
+# \file       build_hss.sh
+# \brief      Build helper for Microchip Hart Software Services (HSS).
+# \author     Kawanami
+# \version    1.0
+# \date       26/10/2025
+#
+# \details
+#   Prepares the Microchip toolchain environment, copies the HSS sources into a
+#   working area, selects the mpfs-disco-kit default configuration, and builds
+#   HSS. If a 5th argument is provided, it runs `make program BOARD=...`, otherwise
+#   just `make BOARD=...`.
+#
+# \remarks
+#   - Requires Microchip tools and helper script `setup_microchip_tools.sh`.
+#   - Arguments:
+#       1) WORK_DIR                     — Workspace root (destination prefix)
+#       2) MPFS_DISCOVERY_KIT_HSS_DIR   — Path to HSS sources
+#       3) MPFS_DISCOVERY_KIT_ROOT_DIR  — Target subdirectory under WORK_DIR
+#       4) MPFS_DISCOVERY_KIT_SCRIPTS_DIR — Path to scripts/ with setup script
+#       5) PROGRAM (optional)           — If set, runs `make program`
+#
+# \section build_hss_sh_version_history Version history
+# | Version | Date       | Author     | Description        |
+# |:-------:|:----------:|:-----------|:-------------------|
+# | 1.0     | 26/10/2025 | Kawanami   | Initial version.   |
+# ********************************************************************************
+# */
+
 set -eo pipefail
 
 # Arguments
@@ -46,11 +77,13 @@ else
 fi
 
 if [ -n "$PROGRAM" ]; then
-    echo "➡️  Building with: make program BOARD=$BOARD"
+    echo "➡️  Programming with: make program BOARD=$BOARD"
     make program BOARD="$BOARD"
+    echo "🎉 Program completed successfully"
 else
     echo "➡️  Building with: make BOARD=$BOARD"
     make BOARD="$BOARD"
+    echo "🎉 Build completed successfully"
 fi
 
-echo "🎉 Build completed successfully"
+

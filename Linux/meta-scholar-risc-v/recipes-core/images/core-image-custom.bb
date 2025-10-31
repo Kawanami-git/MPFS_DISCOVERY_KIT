@@ -11,6 +11,8 @@ IMAGE_INSTALL += "fpga-tools"
 IMAGE_INSTALL += "dnsmasq"
 
 IMAGE_FEATURES += "tools-debug"
+IMAGE_FEATURES += "ssh-server-dropbear"
+
 IMAGE_INSTALL += " \
     gcc \
     packagegroup-core-buildessential \

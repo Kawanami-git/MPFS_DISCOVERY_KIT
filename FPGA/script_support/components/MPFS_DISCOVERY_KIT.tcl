@@ -385,6 +385,15 @@ sd_connect_pins -sd_name ${sd_name} -pin_names {"DQS_N" "MSS_WRAPPER_0:DQS_N" }
 
 #################################### SCHOLAR_RISC-V ###################################
 sd_instantiate_hdl_core -sd_name {MPFS_DISCOVERY_KIT} -hdl_core_name {riscv_env} -instance_name {riscv_env}
+
+sd_configure_core_instance \
+    -sd_name       {MPFS_DISCOVERY_KIT} \
+    -instance_name {riscv_env} \
+    -params        "ARCHI:$ARCHI"
+
+sd_update_instance -sd_name {MPFS_DISCOVERY_KIT} -instance_name {riscv_env}
+
+
 sd_instantiate_component -sd_name {MPFS_DISCOVERY_KIT} -component_name {AXI4_INTERCONNECT} -instance_name {AXI4_INTERCONNECT_0}
 sd_instantiate_component -sd_name {MPFS_DISCOVERY_KIT} -component_name {CORES_CLOCKS} -instance_name {CORES_CLOCKS_0}
 
@@ -397,18 +406,19 @@ sd_connect_pins -sd_name ${sd_name} -pin_names {"CLOCKS_AND_RESETS_0:FIC_0_CLK" 
 sd_connect_pins -sd_name ${sd_name} -pin_names {"CLOCKS_AND_RESETS_0:RESETN_FIC_0_CLK"  "AXI4_INTERCONNECT_0:ARESETN"       }
 sd_connect_pins -sd_name ${sd_name} -pin_names {"MSS_WRAPPER_0:FIC_0_AXI4_INITIATOR"    "AXI4_INTERCONNECT_0:AXI4mmaster0"  }
 
-sd_connect_pins         -sd_name ${sd_name} -pin_names {"CLOCKS_AND_RESETS_0:RESETN_FIC_0_CLK"  "riscv_env:AXI_RSTN"    }
-sd_connect_pins         -sd_name ${sd_name} -pin_names {"MSS_WRAPPER_0:GPIO_2_M2F_17"           "riscv_env:CORE_RSTN"   }
-sd_connect_pins         -sd_name ${sd_name} -pin_names {"AXI4_INTERCONNECT_0:AXI4mslave0"       "riscv_env:AXI4_TARGET" }
-sd_connect_pins         -sd_name ${sd_name} -pin_names {"CLOCKS_AND_RESETS_0:FIC_0_CLK"         "riscv_env:AXI_CLK"     }
-sd_connect_pins         -sd_name ${sd_name} -pin_names {"CORES_CLOCKS_0:OUT0_FABCLK_0"           "riscv_env:CORE_CLK"    }
+sd_connect_pins         -sd_name ${sd_name} -pin_names {"CLOCKS_AND_RESETS_0:RESETN_FIC_0_CLK"  "riscv_env:axi_rstn_i"    }
+sd_connect_pins         -sd_name ${sd_name} -pin_names {"MSS_WRAPPER_0:GPIO_2_M2F_17"           "riscv_env:core_rstn_i"   }
+sd_connect_pins         -sd_name ${sd_name} -pin_names {"AXI4_INTERCONNECT_0:AXI4mslave0"       "riscv_env:INSTR_AXI4_TARGET" }
+sd_connect_pins         -sd_name ${sd_name} -pin_names {"AXI4_INTERCONNECT_0:AXI4mslave1"       "riscv_env:AXI4_TARGET" }
+sd_connect_pins         -sd_name ${sd_name} -pin_names {"CLOCKS_AND_RESETS_0:FIC_0_CLK"         "riscv_env:axi_clk_i"     }
+sd_connect_pins         -sd_name ${sd_name} -pin_names {"CORES_CLOCKS_0:OUT0_FABCLK_0"           "riscv_env:core_clk_i"    }
 ####################################                ###################################
 
 
 
 # Re-enable auto promotion of pins of type 'pad'
 auto_promote_pad_pins -promote_all 1
-# Save the SmartDesign 
+# Save the SmartDesign
 save_smartdesign -sd_name ${sd_name}
 # Generate SmartDesign "MPFS_DISCOVERY_KIT"
 generate_component -component_name ${sd_name}

@@ -14,11 +14,11 @@ SYSTEMD_SERVICE:${PN} = "dropbear-keygen.service"
 SYSTEMD_AUTO_ENABLE:${PN} = "enable"
 
 do_install() {
-    # Script de génération des clés dropbear
+    # Dropbear key generation script
     install -d ${D}${sysconfdir}/init.d
     install -m 0755 ${WORKDIR}/dropbear-keygen.sh ${D}${sysconfdir}/init.d/
 
-    # Services systemd
+    # systemd Services
     install -d ${D}${systemd_system_unitdir}/
     install -m 0644 ${WORKDIR}/dropbear-keygen.service ${D}${systemd_system_unitdir}/
 }

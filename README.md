@@ -25,7 +25,7 @@ This project is licensed under the **MIT License** – see the [LICENSE](LICENSE
 However, parts of this repository are derived from or based on Microchip and Yocto components, which fall under their own licenses:
 
 - **HSS (Hart Software Services)** is published under the [Microchip License](https://github.com/polarfire-soc/hart-software-services/blob/master/LICENSE.md).
-- **yocto** is under both the [Microchip license and the Yocto License](https://github.com/polarfire-soc/meta-polarfire-soc-yocto-bsp/blob/master/LICENSE).
+- **meta-mchp** is under both the [Microchip license](https://github.com/linux4microchip/meta-mchp/blob/scarthgap/meta-mchp-polarfire-soc/COPYING.MIT).
 - **FPGA** is derived from the Microchip reference design for MPFS_DISCOVERY_KIT and is subject to both [Microchip’s original license](https://github.com/polarfire-soc/polarfire-soc-discovery-kit-reference-design/blob/main/LICENSE.md) **and** the MIT License.
 
 <br>
@@ -57,8 +57,8 @@ Only the `main` branch is meaningful; it contains all the necessary source files
 - **[`HSS/`](./HSS/)**  
   Contains the [Microchip Hart Software Services](https://github.com/polarfire-soc/hart-software-services), including the source files for the FSBL (First Stage Bootloader).
 
-- **[`Linux/yocto/`](./Linux/yocto/)**  
-  Contains the [Microchip Yocto layers](https://github.com/polarfire-soc/meta-polarfire-soc-yocto-bsp), which provide the source files for building the SSBL (Second Stage Bootloader) and the Linux system.
+- **[`Linux/meta-mchp/`](./Linux/meta-mchp/)**  
+  Contains the [Microchip Yocto layers](https://github.com/linux4microchip/meta-mchp), which provide the source files for building the SSBL (Second Stage Bootloader) and the Linux system.
 
 - **[`Linux/meta-scholar-risc-v/`](./Linux/meta-scholar-risc-v/)**  
   Contains overlay files that add specific features to the base Yocto build for the MPFS_DISCOVERY_KIT.
