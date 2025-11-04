@@ -5,8 +5,8 @@
 # \file       build_linux.sh
 # \brief      Yocto-based Linux build helper for the MPFS Discovery Kit.
 # \author     Kawanami
-# \version    1.0
-# \date       26/10/2025
+# \version    1.1
+# \date       04/11/2025
 #
 # \details
 #   Prepares a working tree, clones/syncs PolarFire SoC Yocto manifests with
@@ -29,6 +29,7 @@
 # | Version | Date       | Author     | Description      |
 # |:-------:|:----------:|:-----------|:-----------------|
 # | 1.0     | 26/10/2025 | Kawanami   | Initial version. |
+# | 1.0     | 04/11/2025 | Kawanami   | Fix invalid command preventing the linux image to be generated. |
 # ********************************************************************************
 # */
 
@@ -139,10 +140,10 @@ echo "➡️  Adding custom layer and launching build in same Yocto environment"
     echo "➡️  Cleaning build: MACHINE=mpfs-disco-kit bitbake -c cleansstate core-image-custom ${RECIPES[*]}"
     MACHINE=mpfs-disco-kit bitbake -c cleansstate core-image-custom "${RECIPES[@]}"
 
-    echo "➡️  Starting build: MACHINE=mpfs-disco-kit bitbake core-image-custom core-image-custom -c populate_sdk"
-    MACHINE=mpfs-disco-kit bitbake core-image-custom core-image-custom -c populate_sdk
-    # echo "➡️  Starting build: MACHINE=mpfs-disco-kit bitbake core-image-custom -c populate_sdk"
-    # MACHINE=mpfs-disco-kit bitbake core-image-custom -c populate_sdk
+    echo "➡️  Starting build: MACHINE=mpfs-disco-kit bitbake core-image-custom"
+    MACHINE=mpfs-disco-kit bitbake core-image-custom
+    echo "➡️  Starting build: MACHINE=mpfs-disco-kit bitbake core-image-custom -c populate_sdk"
+    MACHINE=mpfs-disco-kit bitbake core-image-custom -c populate_sdk
     cp $YOCTO_DEV_DIR/build/tmp-glibc/deploy/images/mpfs-disco-kit/core-image-custom-mpfs-disco-kit.rootfs-*.wic $TARGET_LINUX_DIR
     sh $YOCTO_DEV_DIR/build/tmp-glibc/deploy/sdk/oecore-core-image-custom-x86_64-riscv64-mpfs-disco-kit-toolchain-nodistro.0.sh -d $TARGET_LINUX_DIR/sdk -y
 )

@@ -14,6 +14,7 @@ IMAGE_FEATURES += "tools-debug"
 IMAGE_FEATURES += "ssh-server-dropbear"
 
 IMAGE_INSTALL += " \
+    lrzsz \
     gcc \
     packagegroup-core-buildessential \
     g++ \
