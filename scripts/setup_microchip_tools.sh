@@ -3,25 +3,28 @@
 # /*!
 # ********************************************************************************
 # \file       setup_microchip_tools.sh
-# \brief      Environment setup for Microchip toolchain (SoftConsole, Libero, license daemon).
+# \brief      Environment setup for Microchip toolchain (SoftConsole, Libero).
 # \author     Kawanami
-# \version    1.0
-# \date       26/10/2025
+# \version    1.1
+# \date       11/11/2025
 #
 # \details
 #   Exports PATH and environment variables for:
 #   - SoftConsole (RISC-V GCC toolchain)
 #   - Libero SoC (Designer, Synplify, ModelSim OEM)
-#   - License daemon (lmgrd) and license file locations
 #
 # \remarks
-#   - Tested on Ubuntu 20.04.6 with Libero 2025.1 and SoftConsole 2022.2.
+#   - Tested on Ubuntu 20.04.6 and 24.04.
 #   - Adjust the directories below to match your installation paths.
+#   - The environment variables LM_LICENSE_FILE and SNPSLMD_LICENSE_FILE
+#     point tools to the running license server (port@host) or to a
+#     license file path. Here we use a local server on port 1702.
 #
 # \section setup_microchip_tools_sh_version_history Version history
 # | Version | Date       | Author     | Description      |
 # |:-------:|:----------:|:-----------|:-----------------|
 # | 1.0     | 26/10/2025 | Kawanami   | Initial version. |
+# | 1.1     | 11/11/2025 | Kawanami   | Remove Licensing daemon. |
 # ********************************************************************************
 # */
 
@@ -30,38 +33,31 @@
 # installed:
 #   - SoftConsole (SC_INSTALL_DIR)
 #   - Libero (LIBERO_INSTALL_DIR)
-#   - Licensing daemon for Libero (LICENSE_DAEMON_DIR)
 #===============================================================================
-export SC_INSTALL_DIR=/home/$USER/microchip/SoftConsole-v2022.2-RISC-V-747
-export LIBERO_INSTALL_DIR=/home/$USER/microchip/
-export LICENSE_DAEMON_DIR=/home/$USER/microchip/Libero_SoC_2025.1/Libero_SoC/Designer/bin64
-export LICENSE_FILE_DIR=/home/$USER/microchip/
-
-#===============================================================================
-# The following was tested on Ubuntu 20.04.06 with:
-#   - Libero 2025.1
-#   - SoftConsole 2022.2
-#===============================================================================
+export SC_INSTALL_DIR=/opt/microchip/SoftConsole/
+export LIBERO_INSTALL_DIR=/opt/microchip/Libero_SoC_2025.1/
 
 #
 # SoftConsole
 #
 export PATH=$PATH:$SC_INSTALL_DIR/riscv-unknown-elf-gcc/bin
-export FPGENPROG=$LIBERO_INSTALL_DIR/Libero_SoC_2025.1/Libero_SoC/Designer/bin64/fpgenprog
+export FPGENPROG=$LIBERO_INSTALL_DIR/Libero_SoC/Designer/bin64/fpgenprog
 
 #
 # Libero
 #
-export PATH=$PATH:$LIBERO_INSTALL_DIR/Libero_SoC_2025.1/Libero_SoC/Designer/bin:$LIBERO_INSTALL_DIR/Libero_SoC_2025.1/Libero_SoC/Designer/bin64
+export PATH=$PATH:$LIBERO_INSTALL_DIR/Libero_SoC/Designer/bin:$LIBERO_INSTALL_DIR/Libero_SoC/Designer/bin64
 export PATH=$PATH:$LIBERO_INSTALL_DIR/Synplify/bin
 export PATH=$PATH:$LIBERO_INSTALL_DIR/Model/modeltech/linuxacoem
 export LOCALE=C
 export LD_LIBRARY_PATH=/usr/lib/i386-linux-gnu:$LD_LIBRARY_PATH
 
-#
-# Libero License daemon
-#
+# ------------------------------------------------------------------------------
+# FlexNet environment:
+#  - LM_LICENSE_FILE / SNPSLMD_LICENSE_FILE can be either:
+#      * port@host (e.g., 1702@localhost) to contact a license server, OR
+#      * an absolute path to a license file (License.dat).
+#    Here we point to a local server that this script will start.
+# ------------------------------------------------------------------------------
 export LM_LICENSE_FILE=1702@localhost
 export SNPSLMD_LICENSE_FILE=1702@localhost
-
-$LICENSE_DAEMON_DIR/lmgrd -c $LICENSE_FILE_DIR/License.dat -l $LICENSE_FILE_DIR/license.log
