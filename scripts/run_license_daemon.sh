@@ -28,7 +28,7 @@
 #   - Tested on Ubuntu 20.04.6 and 24.04.
 #   - Adjust the directories below to match your installation paths.
 #
-# \section setup_microchip_tools_sh_version_history Version history
+# \section run_license_daemon_sh_version_history Version history
 # | Version | Date       | Author     | Description      |
 # |:-------:|:----------:|:-----------|:-----------------|
 # | 1.0     | 11/11/2025 | Kawanami   | Initial version. |
