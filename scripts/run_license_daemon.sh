@@ -5,8 +5,8 @@
 # \file       run_license_daemon.sh
 # \brief      License daemon launcher for Microchip Libero/SoftConsole toolchain.
 # \author     Kawanami
-# \version    1.0
-# \date       11/11/2025
+# \version    1.1
+# \date       24/12/2025
 #
 # \details
 #   Starts the FlexNet (Flexera) license manager daemon (lmgrd) used by
@@ -32,6 +32,7 @@
 # | Version | Date       | Author     | Description      |
 # |:-------:|:----------:|:-----------|:-----------------|
 # | 1.0     | 11/11/2025 | Kawanami   | Initial version. |
+# | 1.1     | 24/12/2025 | Kawanami   | Update Libero with version 2025.2. |
 # ********************************************************************************
 # */
 
@@ -40,7 +41,7 @@
 #  - LICENSE_DAEMON_DIR: directory containing lmgrd (and vendor daemons like snpslmd)
 #  - LICENSE_FILE_DIR  : directory where License.dat and license.log reside
 # ------------------------------------------------------------------------------
-export LICENSE_DAEMON_DIR="/opt/microchip/Libero_SoC_2025.1/Libero_SoC/Designer/bin64"
+export LICENSE_DAEMON_DIR="/opt/microchip/Libero_SoC_2025.2/Libero_SoC/Designer/bin64"
 export LICENSE_FILE_DIR="/opt/microchip/"
 
 # ------------------------------------------------------------------------------

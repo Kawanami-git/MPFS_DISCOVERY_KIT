@@ -5,8 +5,8 @@
 # \file       setup_microchip_tools.sh
 # \brief      Environment setup for Microchip toolchain (SoftConsole, Libero).
 # \author     Kawanami
-# \version    1.2
-# \date       12/11/2025
+# \version    1.3
+# \date       24/12/2025
 #
 # \details
 #   Exports PATH and environment variables for:
@@ -26,6 +26,7 @@
 # | 1.0     | 26/10/2025 | Kawanami   | Initial version. |
 # | 1.1     | 11/11/2025 | Kawanami   | Remove Licensing daemon. |
 # | 1.2     | 12/11/2025 | Kawanami   | Fix SoftConsole default path. |
+# | 1.3     | 24/12/2025 | Kawanami   | Update Libero with version 2025.2. |
 # ********************************************************************************
 # */
 
@@ -36,7 +37,7 @@
 #   - Libero (LIBERO_INSTALL_DIR)
 #===============================================================================
 export SC_INSTALL_DIR=/opt/microchip/SoftConsole-v2022.2-RISC-V-747/
-export LIBERO_INSTALL_DIR=/opt/microchip/Libero_SoC_2025.1/
+export LIBERO_INSTALL_DIR=/opt/microchip/Libero_SoC_2025.2/
 
 #
 # SoftConsole
