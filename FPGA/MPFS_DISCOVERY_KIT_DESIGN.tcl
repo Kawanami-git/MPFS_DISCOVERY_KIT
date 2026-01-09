@@ -94,11 +94,12 @@ if { [file exists $project_dir/$project_name.prjx] } {
 	# Download required cores
 	####################################
 	try {
-		download_core -vlnv {Actel:SgCore:PF_CCC:2.2.222} -location {www.microchip-ip.com/repositories/SgCore}
+		download_core -vlnv {Actel:SgCore:PF_CCC:*} -location {www.microchip-ip.com/repositories/SgCore}
 		download_core -vlnv {Actel:DirectCore:CORERESET_PF:*} -location {www.microchip-ip.com/repositories/DirectCore}
 		download_core -vlnv {Microsemi:SgCore:PFSOC_INIT_MONITOR:*} -location {www.microchip-ip.com/repositories/SgCore}
 		download_core -vlnv {Actel:DirectCore:COREAXI4INTERCONNECT:2.9.100} -location {www.microchip-ip.com/repositories/DirectCore}
 		download_core -vlnv {Actel:SgCore:PF_DPSRAM:1.1.110} -location {www.microchip-ip.com/repositories/SgCore}
+		download_core -vlnv {Actel:SgCore:PF_URAM:1.1.107} -location {www.microchip-ip.com/repositories/SgCore}
 	} on error err {
 		puts "Downloading cores failed, the script will continute but will fail if all of the required cores aren't present in the vault."
 	}
@@ -189,10 +190,21 @@ if { [file exists $project_dir/$project_name.prjx] } {
 ####################################
 # Generating and exporting flash pro express job
 ####################################
+if { $ARCHI == 32 } {
+    puts "Configuring design for 32-bit XLEN"
+
+    configure_tool -name {SYNTHESIZE} \
+        -params {SYNPLIFY_OPTIONS:set_option -hdl_define -set "XLEN32=1";}
+} else {
+    puts "Configuring design for 64-bit XLEN"
+    configure_tool -name {SYNTHESIZE} \
+        -params {SYNPLIFY_OPTIONS:set_option -hdl_define -set "XLEN64=1";}
+}
 update_and_run_tool -name {SYNTHESIZE}
 
+
 if { $isNewProject == 1 } {
-configure_tool -name {PLACEROUTE} -params {DELAY_ANALYSIS:MAX} -params {EFFORT_LEVEL:true} -params {GB_DEMOTION:true} -params {INCRPLACEANDROUTE:false} -params {IOREG_COMBINING:false} -params {MULTI_PASS_CRITERIA:VIOLATIONS} -params {MULTI_PASS_LAYOUT:true} -params {NUM_MULTI_PASSES:1} -params {PDPR:false} -params {RANDOM_SEED:0} -params {REPAIR_MIN_DELAY:true} -params {REPLICATION:false} -params {SLACK_CRITERIA:WORST_SLACK} -params {SPECIFIC_CLOCK:} -params {START_SEED_INDEX:1} -params {STOP_ON_FIRST_PASS:true} -params {TDPR:true}
+configure_tool -name {PLACEROUTE} -params {DELAY_ANALYSIS:MAX} -params {EFFORT_LEVEL:true} -params {GB_DEMOTION:true} -params {INCRPLACEANDROUTE:false} -params {IOREG_COMBINING:false} -params {MULTI_PASS_CRITERIA:VIOLATIONS} -params {MULTI_PASS_LAYOUT:true} -params {NUM_MULTI_PASSES:5} -params {PDPR:false} -params {RANDOM_SEED:0} -params {REPAIR_MIN_DELAY:true} -params {REPLICATION:false} -params {SLACK_CRITERIA:WORST_SLACK} -params {SPECIFIC_CLOCK:} -params {STOP_ON_FIRST_PASS:false} -params {TDPR:true}
 }
 update_and_run_tool -name {PLACEROUTE}
 

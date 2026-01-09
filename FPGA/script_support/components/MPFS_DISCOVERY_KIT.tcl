@@ -389,7 +389,7 @@ sd_instantiate_hdl_core -sd_name {MPFS_DISCOVERY_KIT} -hdl_core_name {riscv_env}
 sd_configure_core_instance \
     -sd_name       {MPFS_DISCOVERY_KIT} \
     -instance_name {riscv_env} \
-    -params        "ARCHI:$ARCHI"
+    -params        "Archi:$ARCHI"
 
 sd_update_instance -sd_name {MPFS_DISCOVERY_KIT} -instance_name {riscv_env}
 

@@ -5,8 +5,8 @@
 # \file       build_linux.sh
 # \brief      Yocto-based Linux build helper for the MPFS Discovery Kit.
 # \author     Kawanami
-# \version    1.1
-# \date       04/11/2025
+# \version    1.0
+# \date       09/01/2025
 #
 # \details
 #   Prepares a working tree, clones/syncs PolarFire SoC Yocto manifests with
@@ -28,8 +28,7 @@
 # \section build_linux_sh_version_history Version history
 # | Version | Date       | Author     | Description      |
 # |:-------:|:----------:|:-----------|:-----------------|
-# | 1.0     | 26/10/2025 | Kawanami   | Initial version. |
-# | 1.0     | 04/11/2025 | Kawanami   | Fix invalid command preventing the linux image to be generated. |
+# | 1.0     | 09/01/2025 | Kawanami   | Initial version. |
 # ********************************************************************************
 # */
 

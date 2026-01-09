@@ -1,9 +1,26 @@
+import_files -hdl_source {../../../hardware/core/common/core_mem_if.sv}
+import_files -hdl_source {../../../hardware/core/common/core_pkg.sv}
+import_files -hdl_source {../../../hardware/core/common/if2id_pkg.sv}
+import_files -hdl_source {../../../hardware/core/common/id2exe_pkg.sv}
+import_files -hdl_source {../../../hardware/core/common/exe2mem_pkg.sv}
+import_files -hdl_source {../../../hardware/core/common/exe2pc_pkg.sv}
+import_files -hdl_source {../../../hardware/core/common/mem2wb_pkg.sv}
+
+
+
+import_files -hdl_source {../../../hardware/core/ctrl/ctrl.sv}
+import_files -hdl_source {../../../hardware/core/ctrl/pc.sv}
 import_files -hdl_source {../../../hardware/core/gpr/gpr.sv}
 import_files -hdl_source {../../../hardware/core/csr/csr.sv}
 import_files -hdl_source {../../../hardware/core/fetch/fetch.sv}
 import_files -hdl_source {../../../hardware/core/decode/decode.sv}
+import_files -hdl_source {../../../hardware/core/decode/decode_unit.sv}
 import_files -hdl_source {../../../hardware/core/exe/exe.sv}
+import_files -hdl_source {../../../hardware/core/exe/alu.sv}
+import_files -hdl_source {../../../hardware/core/mem/mem.sv}
+import_files -hdl_source {../../../hardware/core/mem/mem_unit.sv}
 import_files -hdl_source {../../../hardware/core/writeback/writeback.sv}
+import_files -hdl_source {../../../hardware/core/writeback/writeback_unit.sv}
 import_files -hdl_source {../../../hardware/core/scholar_riscv_core.sv}
 
 import_files -hdl_source {../../../hardware/env/raxi_dpram.sv}
