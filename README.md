@@ -8,17 +8,17 @@ It is intended to be used as a submodule of the SCHOLAR RISC-V GitHub repository
 
 ## 📚 Table of Contents
 
-- [License](#📜-license)
-- [Overview](#🧠-overview)
-- [Project Organization](#🧭-project-organization)
-- [Structure](#📂-structure)
-- [Documentation](#📚-documentation)
-- [Dependencies](#📦-dependencies)
-- [Known Bugs](#🐞-known-bugs)
+- [License](#license)
+- [Overview](#overview)
+- [Project Organization](#project-organization)
+- [Structure](#structure)
+- [Documentation](#documentation)
+- [Dependencies](#dependencies)
+- [Known Bugs](#known-bugs)
 
 <br>
 
-## 📜 License
+## License
 
 This project is licensed under the **MIT License** – see the [LICENSE](LICENSE) file for details.
 
@@ -30,7 +30,7 @@ However, parts of this repository are derived from or based on Microchip and Yoc
 
 <br>
 
-## 🧠 Overview
+## Overview
 
 **SCHOLAR_RISC-V** is a learning-oriented project designed to guide you step-by-step through the inner workings of a processor, using the RISC-V architecture as a foundation.
 
@@ -42,17 +42,21 @@ This repository provides all the necessary files to:
 
 <br>
 
-## 🧭 Project Organization
+## Project Organization
 
-This repository will be updated as needed to support the evolution of the SCHOLAR RISC-V project.
+This repository is a Git submodule used by the **SCHOLAR_RISC-V** project.<br>
+It is updated as needed to support the evolution of the core.
 
-Only the `main` branch is meaningful; it contains all the necessary source files to:
-- Configure the MPFS_DISCOVERY_KIT development board.
-- Load and validate the SCHOLAR RISC-V processor on the .
+Branches in this repository are aligned with the parent repository branches.<br>
+For example:
+- `Single-Cycle` ↔ used by `SCHOLAR_RISC-V/Single-Cycle`
+- `pipeline`     ↔ used by `SCHOLAR_RISC-V/pipeline`
+
+Each parent branch pins this submodule to the matching branch/commit.
 
 <br>
 
-## 📂 Structure
+## Structure
 
 - **[`HSS/`](./HSS/)**  
   Contains the [Microchip Hart Software Services](https://github.com/polarfire-soc/hart-software-services), including the source files for the FSBL (First Stage Bootloader).
@@ -71,19 +75,19 @@ Only the `main` branch is meaningful; it contains all the necessary source files
 
 <br>
 
-## 📚 Documentation
+## Documentation
 
 Full documentation is available in the [SCHOLAR RISC-V project repository](https://github.com/Kawanami-git/SCHOLAR_RISC-V/tree/main/docs/hardware_integration/MPFS_DISCOVERY_KIT/).
 
 <br>
 
-## 📦 Dependencies
+## Dependencies
 
 All dependencies are explicitly described in the [SCHOLAR_RISC-V project – Hardware Integration](https://github.com/Kawanami-git/SCHOLAR_RISC-V/tree/main/docs/hardware_integration/MPFS_DISCOVERY_KIT/) directory.
 
 <br>
 
-## 🐞 Known Issues
+## Known Issues
 
 Yocto may occasionally fail to fetch some external dependencies, which can lead to a build failure. <br>
 If this happens, simply rerun the build process **without cleaning** it. <br>
