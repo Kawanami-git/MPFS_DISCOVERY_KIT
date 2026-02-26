@@ -139,8 +139,11 @@ if { [file exists $project_dir/$project_name.prjx] } {
 		-io_pdc "${constraint_path}/MPFS_DISCOVERY_7_SEG.pdc" \
 		-io_pdc "${constraint_path}/MPFS_DISCOVERY_I2C_LOOPBACK.pdc"
 
+  import_files -sdc "${constraint_path}/scholar_riscv.sdc"
+
 	organize_tool_files \
 		-tool {PLACEROUTE} \
+		-file "${project_dir}/constraint/scholar_riscv.sdc" \
 		-file "${project_dir}/constraint/io/MPFS_DISCOVERY_KIT_BANK_SETTINGS.pdc" \
 		-file "${project_dir}/constraint/io/MPFS_DISCOVERY_KIT_BOARD_MISC.pdc" \
 		-file "${project_dir}/constraint/io/MPFS_DISCOVERY_MAC.pdc" \
@@ -150,6 +153,9 @@ if { [file exists $project_dir/$project_name.prjx] } {
 		-file "${project_dir}/constraint/io/MPFS_DISCOVERY_7_SEG.pdc" \
 		-module {MPFS_DISCOVERY_KIT::work} \
 		-input_type {constraint}
+
+
+  organize_tool_files -tool {VERIFYTIMING} -file "${project_dir}/constraint/scholar_riscv.sdc" -module {MPFS_DISCOVERY_KIT::work} -input_type {constraint}
 
 
 	####################################
@@ -192,7 +198,7 @@ if { [file exists $project_dir/$project_name.prjx] } {
 update_and_run_tool -name {SYNTHESIZE}
 
 if { $isNewProject == 1 } {
-configure_tool -name {PLACEROUTE} -params {DELAY_ANALYSIS:MAX} -params {EFFORT_LEVEL:true} -params {GB_DEMOTION:true} -params {INCRPLACEANDROUTE:false} -params {IOREG_COMBINING:false} -params {MULTI_PASS_CRITERIA:VIOLATIONS} -params {MULTI_PASS_LAYOUT:true} -params {NUM_MULTI_PASSES:5} -params {PDPR:false} -params {RANDOM_SEED:0} -params {REPAIR_MIN_DELAY:true} -params {REPLICATION:false} -params {SLACK_CRITERIA:WORST_SLACK} -params {SPECIFIC_CLOCK:} -params {START_SEED_INDEX:1} -params {STOP_ON_FIRST_PASS:true} -params {TDPR:true}
+configure_tool -name {PLACEROUTE} -params {DELAY_ANALYSIS:MAX} -params {EFFORT_LEVEL:true} -params {GB_DEMOTION:true} -params {INCRPLACEANDROUTE:false} -params {IOREG_COMBINING:false} -params {MULTI_PASS_CRITERIA:SPECIFIC_CLOCK} -params {MULTI_PASS_LAYOUT:true} -params {NUM_MULTI_PASSES:1} -params {PDPR:false} -params {START_SEED_INDEX:16} -params {REPAIR_MIN_DELAY:true} -params {REPLICATION:true} -params {SLACK_CRITERIA:WORST_SLACK} -params {SPECIFIC_CLOCK:CORES_CLOCKS_0/CORES_CLOCKS_0/pll_inst_0/OUT0} -params {STOP_ON_FIRST_PASS:false} -params {TDPR:true}
 }
 update_and_run_tool -name {PLACEROUTE}
 
