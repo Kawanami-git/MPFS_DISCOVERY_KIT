@@ -210,7 +210,7 @@ update_and_run_tool -name {SYNTHESIZE}
 
 
 if { $isNewProject == 1 } {
-configure_tool -name {PLACEROUTE} -params {DELAY_ANALYSIS:MAX} -params {EFFORT_LEVEL:true} -params {GB_DEMOTION:true} -params {INCRPLACEANDROUTE:false} -params {IOREG_COMBINING:false} -params {MULTI_PASS_CRITERIA:SLOWEST_CLOCK} -params {MULTI_PASS_LAYOUT:true} -params {NUM_MULTI_PASSES:1} -params {PDPR:false} -params {START_SEED_INDEX:23} -params {REPAIR_MIN_DELAY:true} -params {REPLICATION:true} -params {SLACK_CRITERIA:WORST_SLACK} -params {SPECIFIC_CLOCK:} -params {STOP_ON_FIRST_PASS:false} -params {TDPR:true}
+configure_tool -name {PLACEROUTE} -params {DELAY_ANALYSIS:MAX} -params {EFFORT_LEVEL:true} -params {GB_DEMOTION:true} -params {INCRPLACEANDROUTE:false} -params {IOREG_COMBINING:false} -params {MULTI_PASS_CRITERIA:SPECIFIC_CLOCK} -params {MULTI_PASS_LAYOUT:true} -params {NUM_MULTI_PASSES:1} -params {PDPR:false} -params {START_SEED_INDEX:12} -params {REPAIR_MIN_DELAY:true} -params {REPLICATION:true} -params {SLACK_CRITERIA:WORST_SLACK} -params {SPECIFIC_CLOCK:CORES_CLOCKS_0/CORES_CLOCKS_0/pll_inst_0/OUT0} -params {STOP_ON_FIRST_PASS:false} -params {TDPR:true}
 }
 update_and_run_tool -name {PLACEROUTE}
 
