@@ -1,3 +1,4 @@
+import_files -hdl_source {../../../hardware/core/common/core_pkg.sv}
 import_files -hdl_source {../../../hardware/core/gpr/gpr.sv}
 import_files -hdl_source {../../../hardware/core/csr/csr.sv}
 import_files -hdl_source {../../../hardware/core/fetch/fetch.sv}
