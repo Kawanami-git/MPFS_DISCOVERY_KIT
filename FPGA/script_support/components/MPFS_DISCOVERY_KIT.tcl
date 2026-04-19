@@ -389,7 +389,8 @@ sd_instantiate_hdl_core -sd_name {MPFS_DISCOVERY_KIT} -hdl_core_name {riscv_env}
 sd_configure_core_instance \
     -sd_name       {MPFS_DISCOVERY_KIT} \
     -instance_name {riscv_env} \
-    -params        "Archi:$ARCHI \
+    -params        "Target:1 \
+                    Archi:$ARCHI \
                     BeWidth:[expr {$ARCHI / 8}]"
 
 sd_update_instance -sd_name {MPFS_DISCOVERY_KIT} -instance_name {riscv_env}
@@ -408,9 +409,9 @@ sd_connect_pins -sd_name ${sd_name} -pin_names {"CLOCKS_AND_RESETS_0:RESETN_FIC_
 sd_connect_pins -sd_name ${sd_name} -pin_names {"MSS_WRAPPER_0:FIC_0_AXI4_INITIATOR"    "AXI4_INTERCONNECT_0:AXI4mmaster0"  }
 
 sd_connect_pins         -sd_name ${sd_name} -pin_names {"CLOCKS_AND_RESETS_0:RESETN_FIC_0_CLK"  "riscv_env:axi_rstn_i"    }
-sd_connect_pins         -sd_name ${sd_name} -pin_names {"MSS_WRAPPER_0:GPIO_2_M2F_17"           "riscv_env:core_rstn_i"   }
-sd_connect_pins         -sd_name ${sd_name} -pin_names {"AXI4_INTERCONNECT_0:AXI4mslave0"       "riscv_env:INSTR_AXI4_TARGET" }
-sd_connect_pins         -sd_name ${sd_name} -pin_names {"AXI4_INTERCONNECT_0:AXI4mslave1"       "riscv_env:AXI4_TARGET" }
+sd_connect_pins         -sd_name ${sd_name} -pin_names {"AXI4_INTERCONNECT_0:AXI4mslave0"       "riscv_env:SYS_RESET_AXI4_TARGET" }
+sd_connect_pins         -sd_name ${sd_name} -pin_names {"AXI4_INTERCONNECT_0:AXI4mslave1"       "riscv_env:INSTR_AXI4_TARGET" }
+sd_connect_pins         -sd_name ${sd_name} -pin_names {"AXI4_INTERCONNECT_0:AXI4mslave2"       "riscv_env:AXI4_TARGET" }
 sd_connect_pins         -sd_name ${sd_name} -pin_names {"CLOCKS_AND_RESETS_0:FIC_0_CLK"         "riscv_env:axi_clk_i"     }
 sd_connect_pins         -sd_name ${sd_name} -pin_names {"CORES_CLOCKS_0:OUT0_FABCLK_0"           "riscv_env:core_clk_i"    }
 ####################################                ###################################

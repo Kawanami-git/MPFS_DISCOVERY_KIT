@@ -1,3 +1,5 @@
+import_files -hdl_source {../../../hardware/common/target_pkg.sv}
+
 import_files -hdl_source {../../../hardware/core/common/core_pkg.sv}
 import_files -hdl_source {../../../hardware/core/gpr/gpr.sv}
 import_files -hdl_source {../../../hardware/core/csr/csr.sv}
@@ -7,12 +9,13 @@ import_files -hdl_source {../../../hardware/core/exe/exe.sv}
 import_files -hdl_source {../../../hardware/core/writeback/writeback.sv}
 import_files -hdl_source {../../../hardware/core/scholar_riscv_core.sv}
 
+import_files -hdl_source {../../../hardware/env/sys_reset.sv}
 import_files -hdl_source {../../../hardware/env/raxi_dpram.sv}
 import_files -hdl_source {../../../hardware/env/waxi_dpram.sv}
 import_files -hdl_source {../../../hardware/env/microchip/dpram_20x1024.sv}
 import_files -hdl_source {../../../hardware/env/microchip/dpram_40x1024.sv}
-import_files -hdl_source {../../../hardware/env/dpram_32w.sv}
-import_files -hdl_source {../../../hardware/env/dpram_64w.sv}
+import_files -hdl_source {../../../hardware/env/microchip/dpram_32w.sv}
+import_files -hdl_source {../../../hardware/env/microchip/dpram_64w.sv}
 import_files -hdl_source {../../../hardware/env/dpram.sv}
 import_files -hdl_source {../../../hardware/env/bus_fabric.sv}
 import_files -hdl_source {../../../hardware/env/riscv_env.sv}
@@ -20,6 +23,27 @@ import_files -hdl_source {../../../hardware/env/riscv_env.sv}
 build_design_hierarchy
 
 create_hdl_core -file hdl/riscv_env.sv -module {riscv_env} -library {work} -package {}
+
+hdl_core_add_bif -hdl_core_name {riscv_env} -bif_definition {AXI4:AMBA:AMBA4:slave} -bif_name {SYS_RESET_AXI4_TARGET} -signal_map {\
+"AWID:sys_reset_axi_awid_i" \
+"AWADDR:sys_reset_axi_awaddr_i" \
+"AWLEN:sys_reset_axi_awlen_i" \
+"AWSIZE:sys_reset_axi_awsize_i" \
+"AWBURST:sys_reset_axi_awburst_i" \
+"AWLOCK:sys_reset_axi_awlock_i" \
+"AWCACHE:sys_reset_axi_awcache_i" \
+"AWPROT:sys_reset_axi_awprot_i" \
+"AWVALID:sys_reset_axi_awvalid_i" \
+"AWREADY:sys_reset_axi_awready_o" \
+"WDATA:sys_reset_axi_wdata_i" \
+"WSTRB:sys_reset_axi_wstrb_i" \
+"WLAST:sys_reset_axi_wlast_i" \
+"WVALID:sys_reset_axi_wvalid_i" \
+"WREADY:sys_reset_axi_wready_o" \
+"BID:sys_reset_axi_bid_o" \
+"BRESP:sys_reset_axi_bresp_o" \
+"BVALID:sys_reset_axi_bvalid_o" \
+"BREADY:sys_reset_axi_bready_i" }
 
 hdl_core_add_bif -hdl_core_name {riscv_env} -bif_definition {AXI4:AMBA:AMBA4:slave} -bif_name {INSTR_AXI4_TARGET} -signal_map {\
 "AWID:s_instr_axi_awid_i" \
