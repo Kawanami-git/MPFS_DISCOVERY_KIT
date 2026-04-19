@@ -36,28 +36,28 @@
 
 #################################### Directories ####################################
 # Root directory of the MPFS Discovery Kit support repository
-MPFS_DISCO_KIT_ROOT_DIR 		= MPFS_DISCOVERY_KIT/
+MPFS_DISCO_KIT_ROOT_DIR 	= MPFS_DISCOVERY_KIT/
 
 # Directory containing MPFS Discovery Kit helper scripts
 MPFS_DISCO_KIT_SCRIPTS_DIR  = $(MPFS_DISCO_KIT_ROOT_DIR)scripts/
 
 # Directory containing the HSS sources
-MPFS_DISCO_KIT_HSS_DIR  		= $(MPFS_DISCO_KIT_ROOT_DIR)HSS/
+MPFS_DISCO_KIT_HSS_DIR  	= $(MPFS_DISCO_KIT_ROOT_DIR)HSS/
 
 # Directory containing the FPGA design sources
-MPFS_DISCO_KIT_FPGA_DIR 		= $(MPFS_DISCO_KIT_ROOT_DIR)FPGA/
+MPFS_DISCO_KIT_FPGA_DIR 	= $(MPFS_DISCO_KIT_ROOT_DIR)FPGA/
 
 # Directory containing the Linux support files and layers
-MPFS_DISCO_KIT_LINUX_DIR		= $(MPFS_DISCO_KIT_ROOT_DIR)Linux/
+MPFS_DISCO_KIT_LINUX_DIR	= $(MPFS_DISCO_KIT_ROOT_DIR)Linux/
 
 # Directory containing the Microchip Yocto layer
-MPFS_DISCO_KIT_YOCTO_DIR		= $(MPFS_DISCO_KIT_LINUX_DIR)meta-mchp/
+MPFS_DISCO_KIT_YOCTO_DIR	= $(MPFS_DISCO_KIT_LINUX_DIR)meta-mchp/
 
 # Directory containing the SCHOLAR RISC-V Yocto layer
-MPFS_DISCO_KIT_LAYER_DIR		= $(MPFS_DISCO_KIT_LINUX_DIR)meta-scholar-risc-v/
+MPFS_DISCO_KIT_LAYER_DIR	= $(MPFS_DISCO_KIT_LINUX_DIR)meta-scholar-risc-v/
 
 # Working directory used for MPFS Discovery Kit board-side utilities
-MPFS_DISCO_KIT_BOARD			  = $(WORK_DIR)$(MPFS_DISCO_KIT_ROOT_DIR)board/
+MPFS_DISCO_KIT_BOARD		= $(WORK_DIR)$(MPFS_DISCO_KIT_ROOT_DIR)board/
 #################################### 			 ####################################
 
 #################################### Linux & SDK ####################################
@@ -87,7 +87,7 @@ MPFS_DISCO_KIT_IP           ?= 192.168.7.2
 MPFS_DISCO_KIT_USER         ?= root
 
 # Default serial device of the MPFS DISCO KIT board
-MPFS_DISCO_KIT_TTY          ?= /dev/ttyUSB2
+MPFS_DISCO_KIT_TTY          ?= /dev/ttyUSB0
 
 # Default serial baud rate of the MPFS DISCO KIT board
 MPFS_DISCO_KIT_TTY_BAUDRATE ?= 115200
@@ -102,27 +102,27 @@ mpfs_disco_kit_help:
 	@echo "Usage: make <target> [XLEN=XLEN32|XLEN64]"
 	@echo
 	@printf "Targets:\n"
-	@printf "  %-35s %s\n" "mpfs_disco_kit_license"				      "Activate Microchip License"
-	@printf "  %-35s %s\n" "mpfs_disco_kit_bitstream"   		    "Build the bitstream for the MPFS DISCO KIT"
+	@printf "  %-35s %s\n" "mpfs_disco_kit_license"				"Activate Microchip License"
+	@printf "  %-35s %s\n" "mpfs_disco_kit_bitstream"   		"Build the bitstream for the MPFS DISCO KIT"
 	@printf "  %-35s %s\n" "mpfs_disco_kit_program_bitstream"   "Program the bitstream in the MPFS DISCO KIT"
-	@printf "  %-35s %s\n" "mpfs_disco_kit_hss"   				      "Build the First Stage Bootoader for the MPFS DISCO KIT"
-	@printf "  %-35s %s\n" "mpfs_disco_kit_program_hss"   		  "Program the HSS in the MPFS DISCO KIT"
-	@printf "  %-35s %s\n" "mpfs_disco_kit_linux"   			      "Build the Linux (and sdk) for the MPFS DISCO KIT"
-	@printf "  %-35s %s\n" "mpfs_disco_kit_get_linux"   		    "Retreive the Linux (and sdk) for the MPFS DISCO KIT"
-	@printf "  %-35s %s\n" "mpfs_disco_kit_program_linux"   	  "Program the Linux in an SD card"
-	@printf "  %-35s %s\n" "mpfs_disco_kit_ssh"   			        "Establish an ssh connection with the MPFS DISCO KIT"
-	@printf "  %-35s %s\n" "mpfs_disco_kit_ssh_setup"   			  "Setup the MPFS DISCO KIT with all the necessary files to run 'loader', 'echo' & 'cyclemark' on the board through ssh"
-	@printf "  %-35s %s\n" "mpfs_disco_kit_minicom"   			    "Open a serial console on the MPFS DISCO KIT"
-	@printf "  %-35s %s\n" "mpfs_disco_kit_usb_setup"   			  "Setup the MPFS DISCO KIT with all the necessary files to run 'loader', 'echo' & 'cyclemark' on the board through usb (uart)"
-	@printf "  %-35s %s\n" "clean_mpfs_disco_kit_bitstream"     "Clean the MPFS DISCO KIT FPGA work directory"
-	@printf "  %-35s %s\n" "clean_mpfs_disco_kit_hss"           "Clean the MPFS DISCO KIT HSS work directory"
-	@printf "  %-35s %s\n" "clean_mpfs_disco_kit_linux"   			"Clean the MPFS DISCO KIT Linux work directory"
-	@printf "  %-35s %s\n" "clean_mpfs_disco_kit_board"   			"Clean the MPFS DISCO KIT board work directory"
-	@printf "  %-35s %s\n" "clean_all_mpfs_disco_kit"   			  "Clean the MPFS DISCO KIT work directory"
-	@printf "  %-35s %s\n" "libero"               				      "Launch Libero in the MPFS environment"
+	@printf "  %-35s %s\n" "mpfs_disco_kit_hss"   				"Build the First Stage Bootoader for the MPFS DISCO KIT"
+	@printf "  %-35s %s\n" "mpfs_disco_kit_program_hss"   		"Program the HSS in the MPFS DISCO KIT"
+	@printf "  %-35s %s\n" "mpfs_disco_kit_linux"   			"Build the Linux (and sdk) for the MPFS DISCO KIT"
+	@printf "  %-35s %s\n" "mpfs_disco_kit_get_linux"   		"Retreive the Linux (and sdk) for the MPFS DISCO KIT"
+	@printf "  %-35s %s\n" "mpfs_disco_kit_program_linux"   	"Program the Linux in an SD card"
+	@printf "  %-35s %s\n" "mpfs_disco_kit_ssh"   			    "Establish an ssh connection with the MPFS DISCO KIT"
+	@printf "  %-35s %s\n" "mpfs_disco_kit_ssh_setup"   		"Setup the MPFS DISCO KIT with all the necessary files to run 'loader', 'echo' & 'cyclemark' on the board through ssh"
+	@printf "  %-35s %s\n" "mpfs_disco_kit_minicom"   			 "Open a serial console on the MPFS DISCO KIT"
+	@printf "  %-35s %s\n" "mpfs_disco_kit_usb_setup"   		 "Setup the MPFS DISCO KIT with all the necessary files to run 'loader', 'echo' & 'cyclemark' on the board through usb (uart)"
+	@printf "  %-35s %s\n" "clean_mpfs_disco_kit_bitstream"      "Clean the MPFS DISCO KIT FPGA work directory"
+	@printf "  %-35s %s\n" "clean_mpfs_disco_kit_hss"            "Clean the MPFS DISCO KIT HSS work directory"
+	@printf "  %-35s %s\n" "clean_mpfs_disco_kit_linux"   		 "Clean the MPFS DISCO KIT Linux work directory"
+	@printf "  %-35s %s\n" "clean_mpfs_disco_kit_board"   		 "Clean the MPFS DISCO KIT board work directory"
+	@printf "  %-35s %s\n" "clean_all_mpfs_disco_kit"   		 "Clean the MPFS DISCO KIT work directory"
+	@printf "  %-35s %s\n" "libero"               				 "Launch Libero in the MPFS environment"
 	@echo
 	@printf "Key variables:\n"
-	@printf "  %-35s %s\n" "XLEN"                               "Architecture (32-bit or 64-bit). Default is 32."
+	@printf "  %-35s %s\n" "XLEN"                                "Architecture (32-bit or 64-bit). Default is 32."
 	@echo
 	@echo "Examples:"
 	@echo "  make isa XLEN=XLEN32"
