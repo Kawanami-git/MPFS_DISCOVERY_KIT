@@ -37,7 +37,7 @@
 #################################### Directories ####################################
 
 # MPFS Discovery Kit support repository directory name.
-MPFS_DISCO_KIT_NAME := MPFS_DISCOVERY_KIT/
+MPFS_DISCO_KIT_NAME := mpfs-discovery-kit/
 
 # Absolute path to the MPFS Discovery Kit source repository.
 MPFS_DISCO_KIT_SRC_ROOT := $(abspath $(RISCV_CORE_HARNESS_DIR)$(MPFS_DISCO_KIT_NAME))/
@@ -78,10 +78,10 @@ MPFS_DISCO_KIT_BOARD_WORK_DIR := $(MPFS_DISCO_KIT_WORK_ROOT)board/
 #################################### Linux & SDK ####################################
 
 # Download URL of the prebuilt MPFS Linux WIC image.
-MPFS_DISCO_KIT_LINUX_LINK = https://github.com/Kawanami-git/MPFS_DISCOVERY_KIT/releases/download/2025-11-04/core-image-custom-mpfs-disco-kit.rootfs-20251104145941.wic
+MPFS_DISCO_KIT_LINUX_LINK = https://github.com/Kawanami-git/mpfs-discovery-kit/releases/download/2025-11-04/core-image-custom-mpfs-disco-kit.rootfs-20251104145941.wic
 
 # Download URL of the prebuilt MPFS Linux SDK installer.
-MPFS_DISCO_KIT_SDK_LINK = https://github.com/Kawanami-git/MPFS_DISCOVERY_KIT/releases/download/2025-11-04/oecore-core-image-custom-x86_64-riscv64-mpfs-disco-kit-toolchain-nodistro.0.sh
+MPFS_DISCO_KIT_SDK_LINK = https://github.com/Kawanami-git/mpfs-discovery-kit/releases/download/2025-11-04/oecore-core-image-custom-x86_64-riscv64-mpfs-disco-kit-toolchain-nodistro.0.sh
 
 # Working directory where the MPFS Linux SDK is installed.
 MPFS_DISCO_KIT_SDK_DIR := $(MPFS_DISCO_KIT_LINUX_WORK_DIR)sdk/
@@ -113,7 +113,7 @@ MPFS_DISCO_KIT_TTY_BAUDRATE ?= 115200
 ####################################		  ####################################
 
 
-# Display help for mpfs_discovery_kit-related targets
+# Display help for mpfs-discovery-kit-related targets
 .PHONY: mpfs_disco_kit_help
 mpfs_disco_kit_help:
 	@echo
@@ -175,7 +175,7 @@ mpfs_disco_kit_bitstream: mpfs_disco_kit_work
 	@echo "➡️  Running bitstream building script..."
 	@bash -lc 'source "$(MPFS_DISCO_KIT_SCRIPTS_DIR)setup_microchip_tools.sh"; \
 		cd "$(MPFS_DISCO_KIT_FPGA_SRC_DIR)"; \
-		libero SCRIPT:MPFS_DISCOVERY_KIT_DESIGN.tcl SCRIPT_ARGS:"ARCHI:$(CPU_XLEN) PNR_SEED:$(PNR_SEED) PNR_PASSES:$(PNR_PASSES)"'
+		libero SCRIPT:MPFS_DISCOVERY_KIT_DESIGN.tcl SCRIPT_ARGS:"ARCHI:$(CPU_XLEN) PNR_SEED:$(PNR_SEED) PNR_PASSES:$(PNR_PASSES) DUT_DIR:$(abspath $(DUT_DIR))"'
 	@echo "✅ Done."
 
 # Build and program the FPGA bitstream for the MPFS Discovery Kit
@@ -186,7 +186,7 @@ mpfs_disco_kit_program_bitstream: mpfs_disco_kit_work
 	@bash -lc 'export program=1; \
 		source "$(MPFS_DISCO_KIT_SCRIPTS_DIR)setup_microchip_tools.sh"; \
 		cd "$(MPFS_DISCO_KIT_FPGA_SRC_DIR)"; \
-		libero SCRIPT:MPFS_DISCOVERY_KIT_DESIGN.tcl SCRIPT_ARGS:"ARCHI:$(CPU_XLEN) PNR_SEED:$(PNR_SEED) PNR_PASSES:$(PNR_PASSES)"'
+		libero SCRIPT:MPFS_DISCOVERY_KIT_DESIGN.tcl SCRIPT_ARGS:"ARCHI:$(CPU_XLEN) PNR_SEED:$(PNR_SEED) PNR_PASSES:$(PNR_PASSES) DUT_DIR:$(abspath $(DUT_DIR))"'
 	@echo "✅ Done."
 
 # Clean MPFS Discovery Kit FPGA build artifacts

@@ -135,7 +135,7 @@ It is updated as needed to support the evolution of the project.
 
 ## Dependencies
 
-All dependencies are explicitly described in the [riscv-core-harness project – board_support](https://github.com/Kawanami-git/riscv-core-harness/tree/main/docs/board_support/MPFS_DISCOVERY_KIT/) directory.
+All dependencies are explicitly described in the [riscv-core-harness project – board_support](https://github.com/Kawanami-git/riscv-core-harness/tree/main/docs/board_support/mpfs-discovery-kit/) directory.
 
 <br>
 <br>
@@ -157,7 +157,7 @@ To avoid running baremetal applications, a Linux image can be installed on the b
 <br>
 
 ### Retrieving the Linux Image
-The custom Linux image and the SDK can be found [here](https://github.com/Kawanami-git/MPFS_DISCOVERY_KIT/releases/tag/2025-11-04).
+The custom Linux image and the SDK can be found [here](https://github.com/Kawanami-git/mpfs-discovery-kit/releases/tag/2025-11-04).
 
 They can be retrieved with the following command:
 ```bash

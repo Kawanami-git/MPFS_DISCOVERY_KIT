@@ -39,7 +39,7 @@ set local_dir [pwd]
 set constraint_path ./script_support/constraints
 
 set project_name "SCHOLAR_RISC-V"
-set project_dir "../../../work/MPFS_DISCOVERY_KIT/FPGA"
+set project_dir "../../../work/mpfs-discovery-kit/FPGA"
 
 set jobPath "$project_dir/bitstream"
 set components "FABRIC"
@@ -50,7 +50,7 @@ set components "FABRIC"
 if { [file exists $project_dir/$project_name.prjx] } {
     puts "Open existing project"
     open_project -file $project_dir/$project_name.prjx
-    open_smartdesign -sd_name {MPFS_DISCOVERY_KIT}
+    open_smartdesign -sd_name {mpfs-discovery-kit}
     set isNewProject 0
 } else {
     puts "Creating a new project"
@@ -208,10 +208,6 @@ if {![info exists PNR_SEED] || $PNR_SEED eq ""} {
 if {![info exists PNR_PASSES] || $PNR_PASSES eq ""} {
   set PNR_PASSES 1
 }
-
-puts "ARCHI      = $ARCHI"
-puts "PNR_SEED   = $PNR_SEED"
-puts "PNR_PASSES = $PNR_PASSES"
 
 if { $ARCHI == 32 } {
     puts "Configuring design for 32-bit XLEN"
