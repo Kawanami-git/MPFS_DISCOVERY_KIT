@@ -391,7 +391,8 @@ sd_configure_core_instance \
     -instance_name {riscv_core_harness} \
     -params        "Target:1 \
                     Archi:$ARCHI \
-                    BeWidth:[expr {$ARCHI / 8}]"
+                    BeWidth:[expr {$ARCHI / 8}] \
+                    EnablePerfCounters:$ENABLE_PERF_COUNTERS"
 
 sd_update_instance -sd_name {MPFS_DISCOVERY_KIT} -instance_name {riscv_core_harness}
 

@@ -38,7 +38,7 @@ set mss_config_loc "$install_loc/bin64/pfsoc_mss"
 set local_dir [pwd]
 set constraint_path ./script_support/constraints
 
-set project_name "SCHOLAR_RISC-V"
+set project_name "riscv-core-harness"
 set project_dir "../../../work/mpfs-discovery-kit/FPGA"
 
 set jobPath "$project_dir/bitstream"
@@ -199,6 +199,10 @@ if { [file exists $project_dir/$project_name.prjx] } {
 
 if {![info exists ARCHI] || $ARCHI eq ""} {
   set ARCHI 32
+}
+
+if {![info exists ENABLE_PERF_COUNTERS] || $ENABLE_PERF_COUNTERS eq ""} {
+  set ENABLE_PERF_COUNTERS 1
 }
 
 if {![info exists PNR_SEED] || $PNR_SEED eq ""} {

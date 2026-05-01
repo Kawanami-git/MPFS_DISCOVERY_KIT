@@ -175,7 +175,7 @@ mpfs_disco_kit_bitstream: mpfs_disco_kit_work
 	@echo "➡️  Running bitstream building script..."
 	@bash -lc 'source "$(MPFS_DISCO_KIT_SCRIPTS_DIR)setup_microchip_tools.sh"; \
 		cd "$(MPFS_DISCO_KIT_FPGA_SRC_DIR)"; \
-		libero SCRIPT:MPFS_DISCOVERY_KIT_DESIGN.tcl SCRIPT_ARGS:"ARCHI:$(CPU_XLEN) PNR_SEED:$(PNR_SEED) PNR_PASSES:$(PNR_PASSES) DUT_DIR:$(abspath $(DUT_DIR))"'
+		libero SCRIPT:MPFS_DISCOVERY_KIT_DESIGN.tcl SCRIPT_ARGS:"ARCHI:$(CPU_XLEN) ENABLE_PERF_COUNTERS:$(ENABLE_PERF_COUNTERS) PNR_SEED:$(PNR_SEED) PNR_PASSES:$(PNR_PASSES) DUT_DIR:$(abspath $(DUT_DIR))"'
 	@echo "✅ Done."
 
 # Build and program the FPGA bitstream for the MPFS Discovery Kit
@@ -186,7 +186,7 @@ mpfs_disco_kit_program_bitstream: mpfs_disco_kit_work
 	@bash -lc 'export program=1; \
 		source "$(MPFS_DISCO_KIT_SCRIPTS_DIR)setup_microchip_tools.sh"; \
 		cd "$(MPFS_DISCO_KIT_FPGA_SRC_DIR)"; \
-		libero SCRIPT:MPFS_DISCOVERY_KIT_DESIGN.tcl SCRIPT_ARGS:"ARCHI:$(CPU_XLEN) PNR_SEED:$(PNR_SEED) PNR_PASSES:$(PNR_PASSES) DUT_DIR:$(abspath $(DUT_DIR))"'
+		libero SCRIPT:MPFS_DISCOVERY_KIT_DESIGN.tcl SCRIPT_ARGS:"ARCHI:$(CPU_XLEN) ENABLE_PERF_COUNTERS:$(ENABLE_PERF_COUNTERS) PNR_SEED:$(PNR_SEED) PNR_PASSES:$(PNR_PASSES) DUT_DIR:$(abspath $(DUT_DIR))"'
 	@echo "✅ Done."
 
 # Clean MPFS Discovery Kit FPGA build artifacts
