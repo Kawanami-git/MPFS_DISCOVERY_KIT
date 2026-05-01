@@ -4,8 +4,8 @@
 # \file       mpfs_disco_kit.mk
 # \brief      MPFS Discovery Kit build and deployment targets for riscv-core-harness.
 # \author     Kawanami
-# \version    1.0
-# \date       28/04/2026
+# \version    1.1
+# \date       01/05/2026
 #
 # \details
 #   This Makefile fragment contains all targets and variables specific to the
@@ -31,6 +31,7 @@
 # | Version | Date       | Author   | Description                                |
 # |:-------:|:----------:|:---------|:-------------------------------------------|
 # | 1.0     | 28/04/2026 | Kawanami | Initial split from the top-level Makefile. |
+# | 1.1     | 01/05/2026 | Kawanami | Fix invalid build of 'platform' software.  |
 # ********************************************************************************
 # */
 
@@ -294,8 +295,8 @@ mpfs_disco_kit_ssh_setup: mpfs_disco_kit_work
 	@$(MAKE) --no-print-directory cyclemark_firmware
 	@ssh -T $(MPFS_DISCO_KIT_USER)@$(MPFS_DISCO_KIT_IP) "mkdir -p $(MPFS_DISCO_KIT_FIRMWARE_DIR)"
 	@scp -T -r $(FIRMWARE_BUILD_DIR)*.hex $(MPFS_DISCO_KIT_USER)@$(MPFS_DISCO_KIT_IP):./$(MPFS_DISCO_KIT_FIRMWARE_DIR)
-	@$(SDK_ACTIVATE) $$CXX $(CXX_FLAGS) $(PLATFORM_FILES) -o $(MPFS_DISCO_KIT_BOARD)platform
-	@scp -T -r $(MPFS_DISCO_KIT_BOARD)platform $(MPFS_DISCO_KIT_USER)@$(MPFS_DISCO_KIT_IP):./
+	@$(call SDK_RUN,$$CXX $(CXX_FLAGS) $(PLATFORM_FILES) -o $(MPFS_DISCO_KIT_BOARD_WORK_DIR)platform)
+	@scp -T -r $(MPFS_DISCO_KIT_BOARD_WORK_DIR)platform $(MPFS_DISCO_KIT_USER)@$(MPFS_DISCO_KIT_IP):./
 	@scp -T -r $(PLATFORM_DIR)Makefile $(MPFS_DISCO_KIT_USER)@$(MPFS_DISCO_KIT_IP):./
 
 
@@ -315,14 +316,14 @@ mpfs_disco_kit_usb_setup: mpfs_disco_kit_work
 	@$(MAKE) --no-print-directory loader_firmware
 	@$(MAKE) --no-print-directory echo_firmware
 	@$(MAKE) --no-print-directory cyclemark_firmware
-	@$(call SDK_RUN,$$CXX $(CXX_FLAGS) $(PLATFORM_FILES) -o $(MPFS_DISCO_KIT_BOARD)platform)
+	@$(call SDK_RUN,$$CXX $(CXX_FLAGS) $(PLATFORM_FILES) -o $(MPFS_DISCO_KIT_BOARD_WORK_DIR)platform)
 
 	@for f in $(FIRMWARE_BUILD_DIR)*.hex; do \
 	  $(MAKE) --no-print-directory uart_ft TTY=$(MPFS_DISCO_KIT_TTY) TTY_BAUDRATE=$(MPFS_DISCO_KIT_TTY_BAUDRATE) UART_FILE="$$f" \
 	  UART_DEST_DIR="./$(MPFS_DISCO_KIT_FIRMWARE_DIR)"; \
 	done
 
-	@$(MAKE) --no-print-directory uart_ft TTY=$(MPFS_DISCO_KIT_TTY) TTY_BAUDRATE=$(MPFS_DISCO_KIT_TTY_BAUDRATE) UART_FILE=$(MPFS_DISCO_KIT_BOARD)platform \
+	@$(MAKE) --no-print-directory uart_ft TTY=$(MPFS_DISCO_KIT_TTY) TTY_BAUDRATE=$(MPFS_DISCO_KIT_TTY_BAUDRATE) UART_FILE=$(MPFS_DISCO_KIT_BOARD_WORK_DIR)platform \
 	UART_DEST_DIR="./"
 
 	@$(MAKE) --no-print-directory uart_ft TTY=$(MPFS_DISCO_KIT_TTY) TTY_BAUDRATE=$(MPFS_DISCO_KIT_TTY_BAUDRATE) UART_FILE=$(PLATFORM_DIR)Makefile \
