@@ -50,7 +50,7 @@ set components "FABRIC"
 if { [file exists $project_dir/$project_name.prjx] } {
     puts "Open existing project"
     open_project -file $project_dir/$project_name.prjx
-    open_smartdesign -sd_name {mpfs-discovery-kit}
+    open_smartdesign -sd_name {MPFS_DISCOVERY_KIT}
     set isNewProject 0
 } else {
     puts "Creating a new project"
@@ -229,13 +229,7 @@ if { $ARCHI == 32 } {
 }
 update_and_run_tool -name {SYNTHESIZE}
 
-proc configure_placeroute {seed passes specific_clock} {
-  if {$passes > 1} {
-    set multi_pass true
-  } else {
-    set multi_pass false
-  }
-
+proc configure_placeroute {seed passes} {
   configure_tool -name {PLACEROUTE} \
     -params {TDPR:true} \
     -params {PDPR:false} \
@@ -243,14 +237,13 @@ proc configure_placeroute {seed passes specific_clock} {
     -params {GB_DEMOTION:true} \
     -params {IOREG_COMBINING:false} \
     -params {INCRPLACEANDROUTE:false} \
-    -params "MULTI_PASS_LAYOUT:$multi_pass" \
+    -params "MULTI_PASS_LAYOUT:true" \
     -params "NUM_MULTI_PASSES:$passes" \
     -params "START_SEED_INDEX:$seed" \
     -params {STOP_ON_FIRST_PASS:false} \
     -params {DELAY_ANALYSIS:MAX} \
     -params {SLACK_CRITERIA:WORST_SLACK} \
-    -params {MULTI_PASS_CRITERIA:SPECIFIC_CLOCK} \
-    -params "SPECIFIC_CLOCK:$specific_clock" \
+    -params {MULTI_PASS_CRITERIA:VIOLATIONS} \
     -params {REPAIR_MIN_DELAY:true} \
     -params {REPLICATION:true}
 
@@ -258,9 +251,9 @@ proc configure_placeroute {seed passes specific_clock} {
     update_and_run_tool -name {VERIFYTIMING}
 }
 
-set core_clock "CORES_CLOCKS_0/CORES_CLOCKS_0/pll_inst_0/OUT0"
+# set core_clock "CORES_CLOCKS_0/CORES_CLOCKS_0/pll_inst_0/OUT0"
 
-configure_placeroute $PNR_SEED $PNR_PASSES $core_clock
+configure_placeroute $PNR_SEED $PNR_PASSES
 
 
 if {[info exists env(program)]} {
