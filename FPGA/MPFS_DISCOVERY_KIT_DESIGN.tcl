@@ -229,7 +229,7 @@ if { $ARCHI == 32 } {
 }
 update_and_run_tool -name {SYNTHESIZE}
 
-proc configure_placeroute {seed passes} {
+proc configure_placeroute {seed passes specific_clock} {
   configure_tool -name {PLACEROUTE} \
     -params {TDPR:true} \
     -params {PDPR:false} \
@@ -243,7 +243,8 @@ proc configure_placeroute {seed passes} {
     -params {STOP_ON_FIRST_PASS:false} \
     -params {DELAY_ANALYSIS:MAX} \
     -params {SLACK_CRITERIA:WORST_SLACK} \
-    -params {MULTI_PASS_CRITERIA:VIOLATIONS} \
+    -params {MULTI_PASS_CRITERIA:SPECIFIC_CLOCK} \
+    -params "SPECIFIC_CLOCK:$specific_clock" \
     -params {REPAIR_MIN_DELAY:true} \
     -params {REPLICATION:true}
 
@@ -251,9 +252,9 @@ proc configure_placeroute {seed passes} {
     update_and_run_tool -name {VERIFYTIMING}
 }
 
-# set core_clock "CORES_CLOCKS_0/CORES_CLOCKS_0/pll_inst_0/OUT0"
+set core_clock "CORES_CLOCKS_0/CORES_CLOCKS_0/pll_inst_0/OUT0"
 
-configure_placeroute $PNR_SEED $PNR_PASSES
+configure_placeroute $PNR_SEED $PNR_PASSES $core_clock
 
 
 if {[info exists env(program)]} {

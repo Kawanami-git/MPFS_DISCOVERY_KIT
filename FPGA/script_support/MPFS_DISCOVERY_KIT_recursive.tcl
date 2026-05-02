@@ -9,15 +9,13 @@ source components/MSS_WRAPPER.tcl
 
 if {$ARCHI == 64} {
     source components/AXI4_INTERCONNECT_64.tcl
-    source components/usram_64.tcl
 } else {
     source components/AXI4_INTERCONNECT_32.tcl
-    source components/usram_32.tcl
 }
-source components/DP_LSRAM_20x1024.tcl
 
+source components/DPSRAM_32x2048.tcl
 source components/CORES_CLOCKS.tcl
-source components/SCHOLAR_RISC-V.tcl
+source components/RISCV_CORE_HARNESS.tcl
 
 source components/MPFS_DISCOVERY_KIT.tcl
 build_design_hierarchy

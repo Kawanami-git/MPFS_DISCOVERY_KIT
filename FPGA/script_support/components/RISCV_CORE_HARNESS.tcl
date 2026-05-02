@@ -246,10 +246,8 @@ libero_import_hdl_source [file join $hardware_dir "common/axi_if.sv"]
 # -----------------------------------------------------------------------------
 # Import MPFS-specific memory wrappers
 # -----------------------------------------------------------------------------
-libero_import_hdl_source [file join $sources_dir "dpram_20x1024.sv"]
-libero_import_hdl_source [file join $sources_dir "dpram_40x1024.sv"]
-libero_import_hdl_source [file join $sources_dir "dpram_32w.sv"]
-libero_import_hdl_source [file join $sources_dir "dpram_64w.sv"]
+libero_import_hdl_source [file join $sources_dir "dpram_2048.sv"]
+libero_import_hdl_source [file join $sources_dir "dpram_4096.sv"]
 
 # -----------------------------------------------------------------------------
 # Import riscv-core-harness hardware harness sources
