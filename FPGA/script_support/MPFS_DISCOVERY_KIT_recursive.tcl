@@ -9,9 +9,12 @@ source components/MSS_WRAPPER.tcl
 
 if {$ARCHI == 64} {
     source components/AXI4_INTERCONNECT_64.tcl
+    source components/FIFO_64x128.tcl
 } else {
     source components/AXI4_INTERCONNECT_32.tcl
+    source components/FIFO_32x128.tcl
 }
+
 
 source components/DPSRAM_32x2048.tcl
 source components/CORES_CLOCKS.tcl

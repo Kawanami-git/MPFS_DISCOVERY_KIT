@@ -99,6 +99,7 @@ if { [file exists $project_dir/$project_name.prjx] } {
 		download_core -vlnv {Microsemi:SgCore:PFSOC_INIT_MONITOR:*} -location {www.microchip-ip.com/repositories/SgCore}
 		download_core -vlnv {Actel:DirectCore:COREAXI4INTERCONNECT:2.9.100} -location {www.microchip-ip.com/repositories/DirectCore}
 		download_core -vlnv {Actel:SgCore:PF_DPSRAM:1.1.110} -location {www.microchip-ip.com/repositories/SgCore}
+		download_core -vlnv {Actel:DirectCore:COREFIFO:3.1.101} -location {www.microchip-ip.com/repositories/DirectCore}
 		download_core -vlnv {Actel:SgCore:PF_URAM:1.1.107} -location {www.microchip-ip.com/repositories/SgCore}
 	} on error err {
 		puts "Downloading cores failed, the script will continute but will fail if all of the required cores aren't present in the vault."
