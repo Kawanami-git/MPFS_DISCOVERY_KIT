@@ -4,8 +4,8 @@
 # \file       mpfs_disco_kit.mk
 # \brief      MPFS Discovery Kit build and deployment targets for riscv-core-harness.
 # \author     Kawanami
-# \version    1.1
-# \date       01/05/2026
+# \version    1.2
+# \date       23/05/2026
 #
 # \details
 #   This Makefile fragment contains all targets and variables specific to the
@@ -32,6 +32,7 @@
 # |:-------:|:----------:|:---------|:-------------------------------------------|
 # | 1.0     | 28/04/2026 | Kawanami | Initial split from the top-level Makefile. |
 # | 1.1     | 01/05/2026 | Kawanami | Fix invalid build of 'platform' software.  |
+# | 1.2     | 23/05/2026 | Kawanami | Update libero target with env. variables.  |
 # ********************************************************************************
 # */
 
@@ -349,5 +350,5 @@ clean_all_mpfs_disco_kit:
 libero:
 	@echo "➡️  Running Libero..."
 	@echo
-	@bash -c "source $(MPFS_DISCO_KIT_SCRIPTS_DIR)setup_microchip_tools.sh && libero"
+	@bash -c "source $(MPFS_DISCO_KIT_SCRIPTS_DIR)setup_microchip_tools.sh && env QT_QPA_PLATFORM=xcb QT_SCALE_FACTOR=1.5 libero"
 	@echo "✅ Done."
