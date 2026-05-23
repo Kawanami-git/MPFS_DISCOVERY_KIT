@@ -383,7 +383,7 @@ sd_connect_pins -sd_name ${sd_name} -pin_names {"DQS_N" "MSS_WRAPPER_0:DQS_N" }
 # sd_connect_pins -sd_name ${sd_name} -pin_names {"FIC_3_PERIPHERALS_0:APB_MMASTER" "MSS_WRAPPER_0:FIC_3_APB_INITIATOR" }
 
 
-#################################### SCHOLAR_RISC-V ###################################
+#################################### riscv-core-harness ###################################
 sd_instantiate_hdl_core -sd_name {MPFS_DISCOVERY_KIT} -hdl_core_name {riscv_core_harness} -instance_name {riscv_core_harness}
 
 sd_configure_core_instance \
