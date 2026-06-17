@@ -16,7 +16,7 @@ create_and_configure_core -core_vlnv {Actel:DirectCore:COREFIFO:3.1.101} -compon
 "NUM_STAGES:2"  \
 "OVERFLOW_EN:false"  \
 "PIPE:1"  \
-"PREFETCH:true"  \
+"PREFETCH:false"  \
 "RAM_OPT:0"  \
 "RDCNT_EN:true"  \
 "RDEPTH:128"  \

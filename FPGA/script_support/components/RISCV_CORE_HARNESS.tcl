@@ -252,7 +252,7 @@ libero_import_hdl_source [file join $sources_dir "dpram_4096.sv"]
 # -----------------------------------------------------------------------------
 # Import riscv-core-harness hardware harness sources
 # -----------------------------------------------------------------------------
-libero_import_hdl_source [file join $hardware_dir "harness/axi2ram.sv"]
+libero_import_hdl_source [file join $hardware_dir "harness/axi2obi.sv"]
 libero_import_hdl_source [file join $hardware_dir "harness/async_fifo.sv"]
 libero_import_hdl_source [file join $hardware_dir "harness/dpram.sv"]
 libero_import_hdl_source [file join $hardware_dir "harness/sys_reset.sv"]
